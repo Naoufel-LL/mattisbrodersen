@@ -10,6 +10,8 @@
     <script src="https://kit.fontawesome.com/66e2912732.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="https://unpkg.com/wavesurfer.js@6.6"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.0.52/wavesurfer.min.js"></script>
 
     <title>Mattis Brodersen
     </title>
@@ -106,6 +108,20 @@ Ich freue mich drauf andere Musiker kennen zu lernen und sich mal auszutauschen!
     </div>
  </div>
  <br>
+ 
+ <div class="hero">
+    <div class="music1">
+      <p>Artist : Mattis Brodersen</p>
+      <h1>Good Day (Wake UP)</h1>
+      <div class="track">
+        <img style="cursor: pointer;" width="50" height="40" id="playBtn" src="./images/play.png" alt="">
+ <div id="waveform"></div>
+        
+      </div>
+    </div>
+ </div>
+
+
 <!-- BANNER -->
 <div class="banner">
   <div id="overlay"></div>
@@ -221,7 +237,6 @@ Ich freue mich drauf andere Musiker kennen zu lernen und sich mal auszutauschen!
         </h3><br>
         <p>Email: <a href="mailto:mattisbrodersen@gmail.com">mattisbrodersen@gmail.com</a></p>
         <p>Instagram: @mattis_meandmyloop_music</p>
-        <div id="waveform"></div>
       </div>
     </div>
 </div>
@@ -274,6 +289,34 @@ Ich freue mich drauf andere Musiker kennen zu lernen und sich mal auszutauschen!
 });
  </script>
  <script>
+ var playBtn = document.getElementById("playBtn")
+ 
+const wavesurfer = WaveSurfer.create({
+  container: '#waveform',
+  waveColor: 'rgb(96, 56, 230)',
+  progressColor: '#383351',
+  barWidth:4,
+  responsive:true,
+  height:90,
+  barRadius:4
+})
+wavesurfer.load("./audio/music.mp3")
+playBtn.onclick = function(){
+  wavesurfer.playPause();
+  if(playBtn.src.includes("play.png")){
+    playBtn.src = "./images/pause.png";
+  }else{
+    playBtn.src = "./images/play.png";
+
+  }
+  wavesurfer.on("finish",function(){
+    playBtn.src = "./images/play.png";
+    wavesurfer.stop();
+  })
+}
+ </script>
+ <script src="./script.js"></script>
+ <script>
     AOS.init({
       once:true
     });
@@ -282,5 +325,6 @@ Ich freue mich drauf andere Musiker kennen zu lernen und sich mal auszutauschen!
   src="https://cdn2.woxo.tech/a.js#64a0d9e7e3f7aeac51ea648a" 
   async data-usrc>
 </script>
+
 </body>
 </html>
